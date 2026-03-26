@@ -15,7 +15,7 @@
     <groupId>com.mahathi</groupId>
     <artifactId>contractor-backend</artifactId>
     <version>1.0.0</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>Mahathi Contractor Backend</name>
     <description>Backend API for Mahathi Building Contractors</description>
     
