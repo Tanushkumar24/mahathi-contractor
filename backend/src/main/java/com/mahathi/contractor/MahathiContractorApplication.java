@@ -2,18 +2,16 @@ package com.mahathi.contractor;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class MahathiContractorApplication extends SpringBootServletInitializer {
+public class MahathiContractorApplication {
     
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(MahathiContractorApplication.class);
-    }
-
     public static void main(String[] args) {
-        SpringApplication.run(MahathiContractorApplication.class, args);
+        // Check if running on Railway (production)
+        String profile = System.getenv("RAILWAY_ENVIRONMENT") != null ? "prod" : "default";
+        
+        SpringApplication app = new SpringApplication(MahathiContractorApplication.class);
+        app.setAdditionalProfiles(profile);
+        app.run(args);
     }
 }

@@ -1,0 +1,43 @@
+# Docker Ignore
+# Ignore these files/folders during COPY
+
+# Version Control
+.git
+.gitignore
+
+# IDE
+.idea
+.vscode
+*.iml
+
+# Build outputs
+**/target/
+**/build/
+*.class
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Documentation
+*.md
+!README.md
+
+# Frontend (not needed for backend build)
+index.html
+*.css
+*.js
+
+# Temp files
+*.tmp
+*.bak
+*.swp
+
+# Test files
+**/test/
+**/tests/
+**/*Test.java

@@ -1,5 +1,4 @@
 com\mahathi\contractor\exception\GlobalExceptionHandler.class
-com\mahathi\contractor\service\EmailService.class
 com\mahathi\contractor\model\ApiResponse.class
 com\mahathi\contractor\model\ContactForm.class
 com\mahathi\contractor\controller\ContactController.class

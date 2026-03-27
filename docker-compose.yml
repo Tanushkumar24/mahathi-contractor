@@ -1,0 +1,60 @@
+# ===========================================
+# Docker Compose - Local Development
+# ===========================================
+# Usage: docker-compose up -d
+
+version: '3.8'
+
+services:
+  
+  # Spring Boot Backend
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mahathi-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=local
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_NAME=mahathi_contractor
+      - DB_USERNAME=root
+      - DB_PASSWORD=mahathi123
+      - MAHATHI_EMAIL_ENABLED=false
+      - CORS_ORIGINS=http://localhost:3000
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - mahathi-network
+    restart: unless-stopped
+
+  # MySQL Database
+  mysql:
+    image: mysql:8.0
+    container_name: mahathi-mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=mahathi123
+      - MYSQL_DATABASE=mahathi_contractor
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - mahathi-network
+    restart: unless-stopped
+
+networks:
+  mahathi-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
