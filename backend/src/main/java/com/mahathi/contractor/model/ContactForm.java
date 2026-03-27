@@ -14,7 +14,7 @@ public class ContactForm {
     private String email;
     
     @NotBlank(message = "Phone number is required")
-    @Pattern(regexp = "^[6-9][0-9]{9}$", message = "Phone number must be 10 digits")
+    @Pattern(regexp = "^[0-9]{10,13}$", message = "Phone number must be 10-13 digits")
     private String phone;
     
     private String service;

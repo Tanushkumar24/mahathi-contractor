@@ -5,31 +5,21 @@ FROM maven:3.9-eclipse-temurin-17 AS builder
 
 WORKDIR /app
 
-# Copy pom.xml first for dependency caching
-COPY backend/pom.xml backend/
-RUN mvn -f backend/pom.xml dependency:go-offline -B
+# Copy entire backend folder
+COPY backend/ ./backend/
 
-# Copy source and build
-COPY backend/src backend/
-RUN mvn -f backend/pom.xml package -DskipTests -B
+# Build the project
+RUN mvn -f backend/pom.xml clean package -DskipTests -B
 
 # ===========================================
 # STAGE 2: Runtime
 # ===========================================
 FROM eclipse-temurin:17-jre
 
-# Create non-root user for security
-RUN groupadd -r appgroup && useradd -r -g appgroup appuser
-
 WORKDIR /app
 
 # Copy JAR from build stage
 COPY --from=builder /app/backend/target/mahathi-contractor-api.jar app.jar
-
-# Set ownership
-RUN chown -R appuser:appgroup /app
-
-USER appuser
 
 # Expose port
 EXPOSE 8080

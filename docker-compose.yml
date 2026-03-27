@@ -16,20 +16,25 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - SPRING_PROFILES_ACTIVE=local
       - DB_HOST=mysql
       - DB_PORT=3306
       - DB_NAME=mahathi_contractor
       - DB_USERNAME=root
       - DB_PASSWORD=mahathi123
-      - MAHATHI_EMAIL_ENABLED=false
-      - CORS_ORIGINS=http://localhost:3000
+      - EMAIL_ENABLED=false
+      - CORS_ORIGINS=*
     depends_on:
       mysql:
         condition: service_healthy
     networks:
       - mahathi-network
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8080/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
 
   # MySQL Database
   mysql:
