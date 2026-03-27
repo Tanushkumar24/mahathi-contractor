@@ -21,10 +21,10 @@ public class ContactService {
     @Autowired
     private JavaMailSender mailSender;
 
-    @Value("${spring.mail.username:noreply@mahathicontractor.com}")
+    @Value("${spring.mail.username:noreply@mahathicontractors.com}")
     private String fromEmail;
 
-    @Value("${mahathi.admin.email:mahathicontractor@gmail.com}")
+    @Value("${mahathi.admin.email:mahathicontractors@gmail.com}")
     private String adminEmail;
 
     @Value("${mahathi.email.enabled:false}")
