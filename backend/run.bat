@@ -1,18 +1,43 @@
 @echo off
+echo.
 echo ========================================
-echo   Mahathi Building Contractors - Backend
+echo   Mahathi Building Contractors Backend
 echo ========================================
 echo.
 
 cd /d "%~dp0"
 
-echo Starting Spring Boot application...
-echo Server will run at: http://localhost:8080
-echo API Health Check: http://localhost:8080/api/health
+echo Checking prerequisites...
 echo.
-echo Press Ctrl+C to stop the server
+
+:: Check Java
+java -version 2>&1 | findstr "version"
+if errorlevel 1 (
+    echo ERROR: Java not found!
+    echo Please install Java 17+
+    pause
+    exit /b 1
+)
+
+echo.
+echo Java OK
+echo.
+
+:: Check Maven
+mvn -version 2>&1 | findstr "Apache"
+if errorlevel 1 (
+    echo ERROR: Maven not found!
+    echo Please install Maven
+    pause
+    exit /b 1
+)
+
+echo Maven OK
+echo.
+echo Starting server at http://localhost:8080
+echo Press Ctrl+C to stop
+echo.
+echo ========================================
 echo.
 
 mvn spring-boot:run
-
-pause

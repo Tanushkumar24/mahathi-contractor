@@ -1,27 +1,36 @@
 @echo off
-echo ========================================
-echo   Building Mahathi Backend
-echo ========================================
+title Mahathi Backend - Build
+color 0A
+echo.
+echo  ********************************************
+echo  *   Mahathi Backend - Build Script        *
+echo  ********************************************
 echo.
 
 cd /d "%~dp0"
 
-echo Cleaning and building project...
-call mvn clean package -DskipTests
+echo [1/3] Cleaning previous build...
+call mvn clean -q
 
-if %errorlevel% equ 0 (
+echo [2/3] Building project (skipping tests)...
+call mvn package -DskipTests -q
+
+if errorlevel 1 (
     echo.
-    echo Build successful!
-    echo JAR file created in target folder
-    echo.
-    echo To run the application:
-    echo   1. Double-click 'run.bat' OR
-    echo   2. Run: java -jar target\contractor-backend-1.0.0.jar
-    echo.
-) else (
-    echo.
-    echo Build failed. Please check the errors above.
-    echo.
+    echo [ERROR] Build failed! Check errors above.
+    pause
+    exit /b 1
 )
 
+echo [3/3] Build successful!
+echo.
+echo  ********************************************
+echo  *   Build Complete!                       *
+echo  ********************************************
+echo.
+echo JAR Location: target\mahathi-contractor-api.jar
+echo.
+echo To run locally:
+echo   mvn spring-boot:run
+echo.
 pause
