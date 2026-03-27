@@ -2,9 +2,9 @@ FROM eclipse-temurin:17-jdk
 
 WORKDIR /app
 
-COPY backend /app
+COPY . /app
 
 RUN apt-get update && apt-get install -y maven
-RUN mvn clean install
+RUN mvn -f backend/pom.xml clean install
 
-CMD ["java", "-jar", "target/mahathi-contractor-api.jar"]
+CMD ["java", "-jar", "backend/target/mahathi-contractor-api.jar"]
