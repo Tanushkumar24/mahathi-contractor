@@ -39,9 +39,9 @@ public class ContactService {
         submission.setService(form.getService());
         submission.setLocation(form.getLocation());
         submission.setMessage(form.getMessage());
-        
+
         ContactSubmission saved = contactRepository.save(submission);
-        
+
         System.out.println("\n==========================================");
         System.out.println("NEW CONTACT FORM SUBMISSION (SAVED TO DB)");
         System.out.println("==========================================");
@@ -54,7 +54,7 @@ public class ContactService {
         System.out.println("Time: " + saved.getSubmittedAt());
         System.out.println("Database ID: " + saved.getId());
         System.out.println("==========================================\n");
-        
+
         if (emailEnabled) {
             try {
                 sendEmailToAdmin(saved);
@@ -67,7 +67,7 @@ public class ContactService {
         } else {
             System.out.println("Email sending is disabled. Form saved to database.");
         }
-        
+
         return saved;
     }
 
@@ -91,23 +91,23 @@ public class ContactService {
 
     private String buildAdminEmailBody(ContactSubmission form) {
         return "NEW CONTACT FORM SUBMISSION\n\n" +
-               "ID: " + form.getId() + "\n" +
-               "Name: " + form.getName() + "\n" +
-               "Email: " + form.getEmail() + "\n" +
-               "Phone: " + form.getPhone() + "\n" +
-               "Service: " + (form.getService() != null ? form.getService() : "Not specified") + "\n" +
-               "Location: " + (form.getLocation() != null ? form.getLocation() : "Not specified") + "\n" +
-               "Message: " + form.getMessage() + "\n\n" +
-               "Submitted: " + form.getSubmittedAt();
+                "ID: " + form.getId() + "\n" +
+                "Name: " + form.getName() + "\n" +
+                "Email: " + form.getEmail() + "\n" +
+                "Phone: " + form.getPhone() + "\n" +
+                "Service: " + (form.getService() != null ? form.getService() : "Not specified") + "\n" +
+                "Location: " + (form.getLocation() != null ? form.getLocation() : "Not specified") + "\n" +
+                "Message: " + form.getMessage() + "\n\n" +
+                "Submitted: " + form.getSubmittedAt();
     }
 
     private String buildConfirmationEmailBody(ContactSubmission form) {
         return "Dear " + form.getName() + ",\n\n" +
-               "Thank you for contacting Mahathi Building Contractors!\n\n" +
-               "We have received your inquiry and will get back to you within 24 hours.\n\n" +
-               "Contact: 8688074469 | mahathicontractor@gmail.com\n\n" +
-               "Regards,\nMahathi Building Contractors\n" +
-               "\"Under Construction Today. Your Dream Home Tomorrow.\"";
+                "Thank you for contacting Mahathi Building Contractors!\n\n" +
+                "We have received your inquiry and will get back to you within 24 hours.\n\n" +
+                "Contact: 8688074469 | mahathicontractor@gmail.com\n\n" +
+                "Regards,\nMahathi Building Contractors\n" +
+                "\"Under Construction Today. Your Dream Home Tomorrow.\"";
     }
 
     public List<ContactSubmission> getAllSubmissions() {
